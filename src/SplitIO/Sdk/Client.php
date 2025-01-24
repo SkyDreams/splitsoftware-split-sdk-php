@@ -188,7 +188,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function getTreatmentWithConfig($key, $featureFlagName, array $attributes = null)
+    public function getTreatmentWithConfig($key, $featureFlagName, ?array $attributes = null)
     {
         try {
             return $this->doEvaluation(
@@ -213,7 +213,7 @@ class Client implements ClientInterface
      *
      * @return null|mixed
      */
-    private function doInputValidationForTreatments($key, $featureFlagNames, array $attributes = null, $operation)
+    private function doInputValidationForTreatments($key, $featureFlagNames, ?array $attributes = null, $operation)
     {
         $featureFlags = InputValidator::validateFeatureFlagNames($featureFlagNames, $operation);
         if (is_null($featureFlags)) {
@@ -301,7 +301,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function getTreatments($key, $featureFlagNames, array $attributes = null)
+    public function getTreatments($key, $featureFlagNames, ?array $attributes = null)
     {
         try {
             return array_map(
@@ -325,7 +325,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function getTreatmentsWithConfig($key, $featureFlagNames, array $attributes = null)
+    public function getTreatmentsWithConfig($key, $featureFlagNames, ?array $attributes = null)
     {
         try {
             return $this->doEvaluationForTreatments(
@@ -396,7 +396,7 @@ class Client implements ClientInterface
         return false;
     }
 
-    public function getTreatmentsByFlagSets($key, $flagSets, array $attributes = null)
+    public function getTreatmentsByFlagSets($key, $flagSets, ?array $attributes = null)
     {
         try {
             return array_map(
@@ -416,7 +416,7 @@ class Client implements ClientInterface
         }
     }
 
-    public function getTreatmentsWithConfigByFlagSets($key, $flagSets, array $attributes = null)
+    public function getTreatmentsWithConfigByFlagSets($key, $flagSets, ?array $attributes = null)
     {
         try {
             return $this->doEvaluationByFlagSets(
@@ -431,7 +431,7 @@ class Client implements ClientInterface
         }
     }
 
-    public function getTreatmentsByFlagSet($key, $flagSet, array $attributes = null)
+    public function getTreatmentsByFlagSet($key, $flagSet, ?array $attributes = null)
     {
         try {
             return array_map(
@@ -451,7 +451,7 @@ class Client implements ClientInterface
         }
     }
 
-    public function getTreatmentsWithConfigByFlagSet($key, $flagSet, array $attributes = null)
+    public function getTreatmentsWithConfigByFlagSet($key, $flagSet, ?array $attributes = null)
     {
         try {
             return $this->doEvaluationByFlagSets(
@@ -466,7 +466,7 @@ class Client implements ClientInterface
         }
     }
 
-    private function doInputValidationByFlagSets($key, $flagSets, array $attributes = null, $operation)
+    private function doInputValidationByFlagSets($key, $flagSets, ?array $attributes = null, $operation)
     {
         $key = InputValidator::validateKey($key, $operation);
         if (is_null($key) || !InputValidator::validAttributes($attributes, $operation)) {

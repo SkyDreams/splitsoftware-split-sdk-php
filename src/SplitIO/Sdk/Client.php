@@ -74,7 +74,7 @@ class Client implements ClientInterface
      *
      * @return null|mixed
      */
-    private function doInputValidationForTreatment($key, $featureFlagName, array $attributes = null, $operation)
+    private function doInputValidationForTreatment($key, $featureFlagName, $operation, ?array $attributes = null)
     {
         $key = InputValidator::validateKey($key, $operation);
         if (is_null($key)) {
@@ -112,7 +112,7 @@ class Client implements ClientInterface
     {
         $default = array('treatment' => TreatmentEnum::CONTROL, 'config' => null);
 
-        $inputValidation = $this->doInputValidationForTreatment($key, $featureFlagName, $attributes, $operation);
+        $inputValidation = $this->doInputValidationForTreatment($key, $featureFlagName, $operation, $attributes);
         if (is_null($inputValidation)) {
             return $default;
         }
@@ -169,7 +169,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function getTreatment($key, $featureName, array $attributes = null)
+    public function getTreatment($key, $featureName, ?array $attributes = null)
     {
         try {
             $result = $this->doEvaluation(
@@ -213,7 +213,7 @@ class Client implements ClientInterface
      *
      * @return null|mixed
      */
-    private function doInputValidationForTreatments($key, $featureFlagNames, ?array $attributes = null, $operation)
+    private function doInputValidationForTreatments($key, $featureFlagNames, $operation, ?array $attributes = null)
     {
         $featureFlags = InputValidator::validateFeatureFlagNames($featureFlagNames, $operation);
         if (is_null($featureFlags)) {
@@ -264,7 +264,7 @@ class Client implements ClientInterface
      */
     private function doEvaluationForTreatments($operation, $key, $featureFlagNames, $attributes)
     {
-        $inputValidation = $this->doInputValidationForTreatments($key, $featureFlagNames, $attributes, $operation);
+        $inputValidation = $this->doInputValidationForTreatments($key, $featureFlagNames, $operation, $attributes);
         if (is_null($inputValidation)) {
             return array();
         }
@@ -466,7 +466,7 @@ class Client implements ClientInterface
         }
     }
 
-    private function doInputValidationByFlagSets($key, $flagSets, ?array $attributes = null, $operation)
+    private function doInputValidationByFlagSets($key, $flagSets, $operation, ?array $attributes = null)
     {
         $key = InputValidator::validateKey($key, $operation);
         if (is_null($key) || !InputValidator::validAttributes($attributes, $operation)) {
@@ -487,7 +487,7 @@ class Client implements ClientInterface
 
     private function doEvaluationByFlagSets($operation, $key, $flagSets, $attributes)
     {
-        $inputValidation = $this->doInputValidationByFlagSets($key, $flagSets, $attributes, $operation);
+        $inputValidation = $this->doInputValidationByFlagSets($key, $flagSets, $operation, $attributes);
         if (is_null($inputValidation)) {
             return array();
         }

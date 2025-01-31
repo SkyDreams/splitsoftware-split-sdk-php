@@ -45,7 +45,7 @@ class LocalhostClient implements ClientInterface
      * @param null $splitFilePath
      * @throws \Exception
      */
-    public function __construct($splitFilePath = null)
+    public function __construct(?$splitFilePath = null)
     {
         $filePath = $this->getExistingFile($splitFilePath);
         // @codeCoverageIgnoreStart
@@ -253,7 +253,7 @@ class LocalhostClient implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function track($key, $trafficType, $eventType, $value = null)
+    public function track($key, $trafficType, $eventType, ?$value = null)
     {
         return true;
     }
